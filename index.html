@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GB Gerador de Assinatura</title>
+    <title>Gerador de Assinatura de Email</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,7 +57,6 @@
             margin-top: 30px;
         }
 
-        /* Estilo do card de assinatura com borda sutil */
         .signature-card {
             width: 600px;
             height: 220px;
@@ -66,7 +65,6 @@
             overflow: hidden;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             background-color: white;
-            border: 1px solid rgba(0, 0, 0, 0.1); /* Sutil linha de contorno */
         }
 
         .signature-left {
@@ -85,7 +83,7 @@
 
         .signature-right {
             background-color: #fff;
-            background-image: url('https://raw.githubusercontent.com/arthur-meireles/GBsignature/main/pattern.svg');
+            background-image: url('https://raw.githubusercontent.com/arthur-meireles/gerador-assinatura/main/pattern.svg');
             background-size: cover;
             background-repeat: no-repeat;
             padding: 20px 40px;
@@ -128,10 +126,7 @@
 <body>
 
     <div class="container">
-    <div class="signature-center">
-                    <img src="https://i.imgur.com/qQ8XYBR.png" alt="Logo GB Agritech">
-                </div>
-        <h1>GB Gerador de Assinatura</h1>
+        <h1>Gerador de Assinatura de Email</h1>
         <div class="form-group">
             <label for="name">Nome</label>
             <input type="text" id="name" placeholder="Digite o nome" oninput="updatePreview()">
@@ -151,7 +146,7 @@
             <h2>Preview da Assinatura</h2>
             <div class="signature-card" id="signaturePreview">
                 <div class="signature-left">
-                    <img src="https://raw.githubusercontent.com/arthur-meireles/GBsignature/main/Logo.svg" alt="Logo GB Agritech">
+                    <img src="https://raw.githubusercontent.com/arthur-meireles/gerador-assinatura/main/Logo.svg" alt="Logo GB Agritech">
                 </div>
                 <div class="signature-right" id="signatureContent">
                     <h2><strong id="firstNamePreview"></strong> <span id="lastNamePreview"></span></h2>
@@ -203,10 +198,10 @@
     <title>Assinatura de Email</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #333333; }
-        .signature-card { width: 600px; height: 220px; display: flex; border-radius: 10px; overflow: hidden; background-color: white; border: 1px solid rgba(0, 0, 0, 0.1); }
+        .signature-card { width: 600px; height: 220px; display: flex; border-radius: 10px; overflow: hidden; background-color: white; }
         .signature-left { background-color: #323232; padding: 20px; display: flex; align-items: center; justify-content: center; width: 40%; }
         .signature-left img { width: 160px; height: auto; }
-        .signature-right { background-color: #fff; background-image: url('https://raw.githubusercontent.com/arthur-meireles/GBsignature/main/pattern.svg'); background-size: cover; background-repeat: no-repeat; padding: 20px 40px; width: 60%; color: #333; }
+        .signature-right { background-color: #fff; background-image: url('https://raw.githubusercontent.com/arthur-meireles/gerador-assinatura/main/pattern.svg'); background-size: cover; background-repeat: no-repeat; padding: 20px 40px; width: 60%; color: #333; }
         .signature-right h2 { margin: 0; font-size: 20px; font-weight: normal; color: #333; }
         .signature-right p { margin: 5px 0; font-size: 14px; color: #555; font-style: italic; }
         .signature-right div { display: flex; align-items: center; margin: 8px 0; }
@@ -236,4 +231,23 @@
 
             // Use html2canvas para capturar a div "signaturePreview"
             html2canvas(signature, {
-               
+                useCORS: true, // Permitir que assets externos sejam carregados
+                proxy: "https://cors-anywhere.herokuapp.com/", // Usar proxy para capturar imagens de outros domínios
+                backgroundColor: null // Manter fundo transparente
+            }).then(function(canvas) {
+                const imgData = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.href = imgData;
+                link.download = 'assinatura.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+    </script>
+
+    <!-- Inclua a biblioteca html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+</body>
+</html>
